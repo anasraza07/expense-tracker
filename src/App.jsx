@@ -8,6 +8,7 @@ function App() {
   const storedSummary = JSON.parse(localStorage.getItem("summary"))
   const storedTransactions = JSON.parse(localStorage.getItem("transactions"))
 
+  // states
   const [transactionForm, setTransactionForm] = useState({
     type: "", amount: "",
     category: "", description: "", date: today,
@@ -20,7 +21,9 @@ function App() {
   const [editingId, setEditingId] = useState(null);
 
   const [filters, setFilters] = useState([]);
+  const [categoryInput, setCategoryInput] = useState("");
 
+  // effects
   useEffect(() => {
     localStorage.setItem("transactions", JSON.stringify(transactions));
 
@@ -131,8 +134,10 @@ function App() {
   }
 
   const filteredTransactions = filters.length ?
-    transactions.filter(({ type }) => filters.includes(type)) :
-    transactions;
+    transactions.filter(({ type }) => filters.includes(type)) : transactions;
+
+  const categoryFilteredTransactions = categoryInput ? filteredTransactions
+    .filter(t => t.category === categoryInput) : filteredTransactions;
 
   return (
     <div className="min-h-screen bg-slate-900 text-white flex flex-col items-center py-10 px-4">
@@ -272,29 +277,32 @@ function App() {
         <div className="bg-slate-800 p-4 rounded-2xl shadow-lg flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
           <div className="flex items-center gap-4">
             <div className="font-medium text-gray-300">Filter:</div>
-            <button className="px-4 py-1 bg-slate-700 rounded-lg hover:bg-slate-600 transition cursor-pointer" onClick={saveFilters}>Income</button>
-            <button className="px-4 py-1 bg-slate-700 rounded-lg hover:bg-slate-600 transition cursor-pointer" onClick={saveFilters}>Expense</button>
+            <button className={`px-4 py-1 border-2 border-slate-600 
+            ${!filters.includes("income") ? 'bg-transparent hover:bg-slate-700' : 'bg-slate-700 hover:bg-slate-700/80'} rounded-lg transition cursor-pointer`}
+              onClick={saveFilters}>Income</button>
+            <button className={`px-4 py-1 border-2 border-slate-600 rounded-lg transition cursor-pointer ${!filters.includes("expense") ? 'bg-transparent hover:bg-slate-700' : 'bg-slate-700 hover:bg-slate-700/80'}`} onClick={saveFilters}>Expense</button>
           </div>
 
           <div className="flex items-center gap-3">
             <div className="font-medium text-gray-300">Category:</div>
-            <select className="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 focus:ring-2 focus:ring-green-400 outline-none">
+            <select className="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 focus:ring-2 focus:ring-green-400 outline-none capitalize"
+              defaultValue={categoryInput} onChange={(e) => {
+                setCategoryInput(e.target.value)
+              }}>
               <option value="">All</option>
-              <option>Food</option>
-              <option>Travel</option>
-              <option>Education</option>
-              <option>Entertainment</option>
-              <option>Vehicle</option>
-              <option>Office</option>
-              <option>Utilities</option>
-              <option>Other</option>
+              {filters.length === 1 ? (filters[0] === "income" ?
+                incomeCategories.map((category, index) => <option value={category}
+                  key={index} className="capitalize">{category}</option>) : expenseCategories.map((category, index) => <option value={category}
+                    key={index} className="capitalize">{category}</option>)) :
+                [...incomeCategories, ...expenseCategories].map((category, index) =>
+                  <option key={index} value={category} className="capitalize">{category}</option>)}
             </select>
           </div>
         </div>
 
         {/* Transactions List */}
         <div className="space-y-4">
-          {filteredTransactions.map(({ id, description, category, amount, date, type }, index) => (
+          {categoryFilteredTransactions.map(({ id, description, category, amount, date, type }, index) => (
             <div
               key={index}
               className="bg-slate-800 rounded-2xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-lg hover:bg-slate-700 transition">
