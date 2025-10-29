@@ -1,16 +1,34 @@
-# React + Vite
+# 💸 Expense Tracker
+A simple yet powerful React-based Expense Tracker to manage your income and expenses efficiently.
+This project helped me deeply understand React hooks, state management, and UI/UX best practices.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🧾 Short Description
+This Expense Tracker app allows users to add, edit, delete, and filter income and expense records.
+It’s fully responsive, stores data in localStorage, and includes features like category-based filtering, real-time balance updates, and toast notifications for better user experience.
 
-Currently, two official plugins are available:
+## 🧠 Tech Stack
+- **ReactJS (Vite)** – for building dynamic UI
+- **Tailwind CSS** – for fast and responsive styling
+- **Sonner** – for smooth toast notifications
+- **LocalStorage** – for data persistence
+- **useRef & useMemo** – for performance and 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
+🔗 [View Live Project](https://hiisaab.netlify.app)
 
-## React Compiler
+## ✨ Key Features
+- 🟢 Add, edit, and delete transactions
+- 🔴 Color-coded entries: income (green), expense (red)
+- 🧮 Auto-calculated total balance
+- ⚙️ Dynamic filters by type & category
+- 💾 Persistent data using localStorage
+- 🚫 Add button disabled until fields are valid
+- 📝 Default “No description” if left empty
+- 🔔 Toast notifications for better UX
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 💡 What I Learned
+- Practical use of React hooks like useRef and useMemo
+- Managing state and side effects cleanly
+- Building responsive UI with Tailwind CSS
+- Improving form validation and user feedback
+- Deploying React apps seamlessly on Netlify
